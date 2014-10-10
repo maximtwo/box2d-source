@@ -217,7 +217,7 @@ b2Joint* b2World::CreateJoint(const b2JointDef* def)
 		return NULL;
 	}
 
-	b2Joint* j = b2Joint::Create(def, &m_blockAllocator);
+	b2Joint* j = b2Joint::Create(this, def, &m_blockAllocator);
 
 	// Connect to the world list.
 	j->m_prev = NULL;

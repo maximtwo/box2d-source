@@ -82,6 +82,19 @@ public:
 	/// @see b2Shape::ComputeMass
 	void ComputeMass(b2MassData* massData, float32 density) const;
 
+	/// Get the number of vertices.
+	int32 GetVertexCount() const { return m_count; }
+
+	/// Get the vertices (read-only).
+	const b2Vec2& GetVertex(int32 index) const
+	{
+		b2Assert(0 <= index && index < m_count);
+		return m_vertices[index];
+	}
+
+	/// Get the vertices (read-only).
+	const b2Vec2* GetVertices() const { return m_vertices; }
+
 	/// The vertices. Owned by this class.
 	b2Vec2* m_vertices;
 

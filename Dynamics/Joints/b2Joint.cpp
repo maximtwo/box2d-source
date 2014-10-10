@@ -28,13 +28,14 @@
 #include <Box2D/Dynamics/Joints/b2FrictionJoint.h>
 #include <Box2D/Dynamics/Joints/b2RopeJoint.h>
 #include <Box2D/Dynamics/Joints/b2MotorJoint.h>
+#include <Box2D/Dynamics/Joints/b2ConstantVolumeJoint.h>
 #include <Box2D/Dynamics/b2Body.h>
 #include <Box2D/Dynamics/b2World.h>
 #include <Box2D/Common/b2BlockAllocator.h>
 
 #include <new>
 
-b2Joint* b2Joint::Create(const b2JointDef* def, b2BlockAllocator* allocator)
+b2Joint* b2Joint::Create(b2World* world, const b2JointDef* def, b2BlockAllocator* allocator)
 {
 	b2Joint* joint = NULL;
 
@@ -116,6 +117,14 @@ b2Joint* b2Joint::Create(const b2JointDef* def, b2BlockAllocator* allocator)
 			joint = new (mem) b2MotorJoint(static_cast<const b2MotorJointDef*>(def));
 		}
 		break;
+	
+	case e_constantVolumeJoint:
+	{
+			void* mem = allocator->Allocate(sizeof(b2ConstantVolumeJoint));
+			joint = new (mem) b2ConstantVolumeJoint(world, static_cast<const b2ConstantVolumeJointDef*>(def));
+
+	}
+		break;
 
 	default:
 		b2Assert(false);
@@ -172,6 +181,10 @@ void b2Joint::Destroy(b2Joint* joint, b2BlockAllocator* allocator)
 
 	case e_motorJoint:
 		allocator->Free(joint, sizeof(b2MotorJoint));
+		break;
+
+	case e_constantVolumeJoint:
+		allocator->Free(joint, sizeof(b2ConstantVolumeJoint));
 		break;
 
 	default:

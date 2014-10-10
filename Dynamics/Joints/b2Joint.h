@@ -21,6 +21,7 @@
 
 #include <Box2D/Common/b2Math.h>
 
+class b2World;
 class b2Body;
 class b2Joint;
 struct b2SolverData;
@@ -39,7 +40,8 @@ enum b2JointType
     e_weldJoint,
 	e_frictionJoint,
 	e_ropeJoint,
-	e_motorJoint
+	e_motorJoint,
+	e_constantVolumeJoint
 };
 
 enum b2LimitState
@@ -155,7 +157,7 @@ protected:
 	friend class b2Island;
 	friend class b2GearJoint;
 
-	static b2Joint* Create(const b2JointDef* def, b2BlockAllocator* allocator);
+	static b2Joint* Create(b2World* world, const b2JointDef* def, b2BlockAllocator* allocator);
 	static void Destroy(b2Joint* joint, b2BlockAllocator* allocator);
 
 	b2Joint(const b2JointDef* def);
