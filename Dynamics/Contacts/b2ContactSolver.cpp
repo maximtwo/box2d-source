@@ -27,7 +27,7 @@
 #define B2_DEBUG_SOLVER 0
 
 bool g_blockSolve = true;
-
+float b2_velocityThreshold = 1.0f;
 struct b2ContactPositionConstraint
 {
 	b2Vec2 localPoints[b2_maxManifoldPoints];
